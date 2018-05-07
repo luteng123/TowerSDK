@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/rootView_contract"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/common_bg"
+              android:orientation="vertical"
+        >
+
+    <LinearLayout
+            android:id="@+id/requestInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+        <TextView
+                android:id="@+id/time_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:text="下次更新:--秒"
+                android:textColor="#e6e6e6"
+                android:textSize="14sp"
+                android:visibility="gone"
+                />
+
+        <!--力矩-->
+        <TextView
+                android:id="@+id/tv_update_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                tools:text="上次数据刷新时间：2018-02-31 12:12"
+                />
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/tower_bg"
+                >
+
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/left_zhu"
+                    android:orientation="horizontal"
+                    >
+
+                <TextView
+                        android:id="@+id/tower_zhu_left_text_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="#4ef8f8"
+                        android:textSize="15sp"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="m/s"
+                        android:textColor="#4ef8f8"
+                        android:textSize="10sp"
+                        />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/right_zhu"
+                    android:orientation="horizontal"
+                    >
+
+                <TextView
+                        android:id="@+id/tower_zhu_right_text_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="#4ef8f8"
+                        android:textSize="15sp"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="t"
+                        android:textColor="#4ef8f8"
+                        android:textSize="10sp"
+                        />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                    android:id="@+id/left_zhu"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    >
+
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="clip_horizontal"
+                            android:gravity="center_horizontal"
+                            android:padding="2dp"
+                            android:text="风速"
+                            android:textColor="#bfbfbf"
+                            android:textSize="12sp"
+                            />
+
+                    <View
+                            android:id="@+id/tower_zhu_left_value"
+                            android:layout_width="40dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="bottom"
+                            android:background="@drawable/zhu_right_value"
+                            />
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/zhu_left_bg"
+                            />
+
+                </FrameLayout>
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                    android:id="@+id/right_zhu"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="bottom"
+                    >
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="clip_horizontal"
+                            android:gravity="center_horizontal"
+                            android:padding="2dp"
+                            android:text="吊重"
+                            android:textColor="#bfbfbf"
+                            android:textSize="12sp"
+                            />
+
+                    <View
+                            android:id="@+id/tower_right_zhu_value"
+                            android:layout_width="40dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="bottom"
+                            android:background="@drawable/zhu_right_value"
+                            />
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/zhu_right_bg"
+                            />
+
+                </FrameLayout>
+            </RelativeLayout>
+
+
+            <FrameLayout
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="50dp"
+                    android:gravity="bottom"
+                    >
+
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|clip_horizontal"
+                        android:layout_marginLeft="50dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/tower_heng_value"
+                        />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:layout_marginTop="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/tower_shu_value"
+                        />
+
+                <ImageView
+                        android:id="@+id/tower_viewTop"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="9dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/tower_car"
+                        />
+
+                <ImageView
+                        android:id="@+id/tower_viewLine"
+                        android:layout_width="8dp"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="14dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/tower_line"
+                        />
+
+                <ImageView
+                        android:id="@+id/tower_viewBottom"
+                        android:layout_width="8dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/tower_weight"
+                        />
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/new_tower_machine"
+                        android:gravity="bottom"
+                        />
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="20dp"
+                >
+
+            <LinearLayout
+                    android:id="@+id/tower_button_value_one"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    >
+
+                <TextView
+                        android:id="@+id/tower_value_one"
+                        style="@style/towe_liju_style"
+                        android:text="--"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="吊高"
+                        android:textColor="#4ef8f8"
+                        android:textSize="14sp"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tower_button_value_two"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+
+                    >
+
+                <TextView
+                        android:id="@+id/tower_value_two"
+                        style="@style/towe_liju_style"
+                        android:text="--"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="幅度"
+                        android:textColor="#4ef8f8"
+                        android:textSize="14sp"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tower_button_value_three"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    >
+
+                <TextView
+                        android:id="@+id/tower_value_three"
+                        style="@style/towe_liju_style"
+                        android:text="--"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="力矩百分比"
+                        android:textColor="#4ef8f8"
+                        android:textSize="14sp"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tower_button_value_four"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    >
+
+                <TextView
+                        android:id="@+id/tower_value_four"
+                        style="@style/towe_liju_style"
+                        android:text="--"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="转角"
+                        android:textColor="#4ef8f8"
+                        android:textSize="14sp"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tower_button_value_five"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    >
+
+                <TextView
+                        android:id="@+id/tower_value_five"
+                        style="@style/towe_liju_style"
+                        android:text="--"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="风速"
+                        android:textColor="#4ef8f8"
+                        android:textSize="14sp"
+                        />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
