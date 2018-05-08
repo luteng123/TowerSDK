@@ -3,7 +3,6 @@ package com.goyo.towermodule.net;
 import android.support.annotation.NonNull;
 
 import com.goyo.towermodule.util.CommUtils;
-import com.goyo.towermodule.util.retrofit.JsonConverterFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by JarvisLau on 2018/5/7.
@@ -40,7 +40,7 @@ public class RetrofitUtils {
                     client.addInterceptor(new HeaderInterceptor());
                     retrofitParams = new Retrofit.Builder().
                             baseUrl(BASE_URL).
-                            addConverterFactory(JsonConverterFactory.create()).
+                            addConverterFactory(GsonConverterFactory.create()).
                             client(client.build()).
                             build().create(RetrofitParams.class);
                 }

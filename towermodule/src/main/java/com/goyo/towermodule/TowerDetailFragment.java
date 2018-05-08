@@ -13,6 +13,7 @@ import android.util.SparseArray;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.*;
+
 import com.goyo.towermodule.base.BaseFragment;
 import com.goyo.towermodule.bean.TowerDetailBean;
 import com.goyo.towermodule.bean.TowerReallBean;
@@ -20,8 +21,10 @@ import com.goyo.towermodule.net.RetrofitUtils;
 import com.goyo.towermodule.util.DateUtils;
 import com.goyo.towermodule.util.JsonUtil;
 import com.goyo.towermodule.util.LogUtil;
+
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -181,7 +184,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
 
     protected void initData() {
         Bundle arguments = getArguments();
-        if(arguments != null){
+        if (arguments != null) {
             proId = getArguments().getString("proId");
             craneNo = getArguments().getString("craneNo");
         }
@@ -199,10 +202,10 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
         restoreHandler();
         getNetWork();
 
-        if(proId != null){
+        if (proId != null) {
             getNetWork();
-        }else {
-            Toast.makeText(getContext(),"请传递参数proId",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(), "请传递参数proId", Toast.LENGTH_LONG).show();
         }
 
         requestInfo.setFocusable(true);
@@ -211,7 +214,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void getNetWork() {
-        Call<TowerDetailBean> call = RetrofitUtils.getInstance().requestTowerDetail(proId,craneNo);
+        Call<TowerDetailBean> call = RetrofitUtils.getInstance().requestTowerDetail(proId, craneNo);
         call.enqueue(new Callback<TowerDetailBean>() {
             @Override
             public void onResponse(Call<TowerDetailBean> call, Response<TowerDetailBean> json) {
@@ -219,7 +222,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
                 //Log.i("TTT", "塔机详情: "+str);
                 //TowerDetailBean response = JsonUtil.json2Bean(str, TowerDetailBean.class);
                 TowerDetailBean response = json.body();
-                if(response != null){
+                if (response != null) {
                     if ("1".equals(response.getCode())) {
                         if (response.getData() != null) {
                             if (response.getData().getPhototPath() != null) {
@@ -311,7 +314,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
 
             @Override
             public void onFailure(Call<TowerDetailBean> call, Throwable t) {
-                LogUtil.i("塔机详情 "+t.getMessage());
+                LogUtil.i("塔机详情 " + t.getMessage());
             }
         });
     }
@@ -394,7 +397,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
 
                 } else if (msg.what == MSG_CONNECT_SUSS) {
                     try {
-                        LogUtil.i("订阅   "+myTopic);
+                        LogUtil.i("订阅   " + myTopic);
                         client.subscribe(myTopic, 1);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -552,7 +555,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
                 public void messageArrived(String topicName, MqttMessage message)
                         throws Exception {
                     //subscribe后得到的消息会执行到这里面
-                    Log.i("TTT", "收到的消息: "+message);
+                    Log.i("TTT", "收到的消息: " + message);
                     Message msg = new Message();
                     msg.what = MSG_CONNECT_DATA;
                     msg.obj = message.toString();
@@ -629,7 +632,6 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 
 
     public void publish(String mqttPath, String messageInfo) {

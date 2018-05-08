@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.goyo.towermodule.util.Toaster;
+import com.goyo.towermodule.widget.ThemeProgressDialog;
+
 /**
  * Created by JarvisLau on 2018/5/7.
  * Description :
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment implements BaseView {
 
     private View rootView;
+    private ThemeProgressDialog themeProgressDialog;
 
     @Nullable
     @Override
@@ -26,7 +30,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     }
 
 
-
     @Override
     public Context getContext() {
         return super.getContext();
@@ -35,6 +38,26 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Override
     public View getRootView() {
         return rootView;
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toaster.make(getContext(), msg).show();
+    }
+
+    @Override
+    public void showProgress() {
+        if (themeProgressDialog == null) {
+            themeProgressDialog = new ThemeProgressDialog(getContext());
+        }
+        themeProgressDialog.show();
+    }
+
+    @Override
+    public void dismissProgress() {
+        if (themeProgressDialog != null) {
+            themeProgressDialog.dismiss();
+        }
     }
 
     protected abstract int getLayoutId();

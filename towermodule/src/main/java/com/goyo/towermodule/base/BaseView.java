@@ -14,4 +14,10 @@ public interface BaseView {
 
     View getRootView();
 
+    void showToast(String msg);
+
+    void showProgress();
+
+    void dismissProgress();
+
 }
