@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TowerModule</string>
+    <string name="unit_refresh_date">上次数据刷新时间 : %1$s</string>
+    <string name="unit_online">在线 %1$s / </string>
+    <string name="unit_offline">离线 %1$s</string>
+    <string name="tower_crane_detail_list">塔机详情列表</string>
+    <string name="unit_work_count">起吊次数:%1$s次</string>
+    <string name="unit_driver">司机:%1$s</string>
+    <string name="unit_warn_count">今日报警:%1$s</string>
+    <string name="unit_no">编号:%1$s</string>
 </resources>

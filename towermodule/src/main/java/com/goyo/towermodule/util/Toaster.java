@@ -15,18 +15,20 @@ public class Toaster {
     private static Toast toast;
 
     private Toaster() {
-        toaster = new Toaster();
+
     }
 
     @SuppressLint("ShowToast")
     public static Toaster make(Context context, String msg) {
+        if (toast != null) {
+            toast.cancel();
+        }
         toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
-        return toaster;
+        return toaster == null ? toaster = new Toaster() : toaster;
     }
 
     public void show() {
-        if(toast!=null) {
-            toast.cancel();
+        if (toast != null) {
             toast.show();
         }
     }

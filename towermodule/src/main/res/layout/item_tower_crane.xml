@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/ic_line_list" />
+
+        <ImageView
+            android:id="@+id/ivTowerCraneStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/ic_line_list" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_tower_crane_item"
+        android:orientation="vertical"
+        android:paddingBottom="9dp"
+        android:paddingEnd="10dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="10dp"
+        android:paddingStart="12dp"
+        android:paddingTop="9dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTowerCraneName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvTowerCraneNo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:paddingEnd="5dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="5dp"
+                android:paddingStart="0dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTowerCraneWorkCount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvTowerCraneOperator"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp" />
+
+
+            <TextView
+                android:id="@+id/tvTowerCraneWarnCount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center|start"
+                android:maxLength="7"
+                android:maxLines="1"
+                android:paddingEnd="5dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="5dp"
+                android:paddingStart="0dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

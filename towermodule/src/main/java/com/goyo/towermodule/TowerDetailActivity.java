@@ -3,6 +3,7 @@ package com.goyo.towermodule;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,14 +17,18 @@ import android.util.SparseArray;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.*;
+
 import com.goyo.towermodule.bean.TowerDetailBean;
 import com.goyo.towermodule.bean.TowerReallBean;
 import com.goyo.towermodule.net.RetrofitUtils;
 import com.goyo.towermodule.util.DateUtils;
 import com.goyo.towermodule.util.JsonUtil;
 import com.goyo.towermodule.util.LogUtil;
+import com.goyo.towermodule.util.Toaster;
+
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -178,11 +183,22 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
         initData();
     }
 
+    protected static void start(Context context, String proId, String craneNo) {
+        Intent intent = new Intent(context, TowerDetailActivity.class);
+        intent.putExtra("proId", proId);
+        intent.putExtra("craneNo", craneNo);
+        context.startActivity(intent);
+    }
+
     protected void initData() {
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             proId = intent.getStringExtra("proId");
             craneNo = intent.getStringExtra("craneNo");
+        }
+        if (intent == null || TextUtils.isEmpty(proId) || TextUtils.isEmpty(craneNo)) {
+            Toaster.make(this, "发生错误!");
+            finish();
         }
 
         /*proId = "6260";
@@ -197,10 +213,10 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
         mImplCenter = mDensity * mImplHeightHuff;
         restoreHandler();
 
-        if(proId != null || craneNo == null){
+        if (proId != null || craneNo == null) {
             getNetWork();
-        }else {
-            Toast.makeText(this,"请传递参数  proId 和 craneNo",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "请传递参数  proId 和 craneNo", Toast.LENGTH_LONG).show();
         }
 
         requestInfo.setFocusable(true);
@@ -209,7 +225,7 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getNetWork() {
-        Call<TowerDetailBean> call = RetrofitUtils.getInstance().requestTowerDetail(proId,craneNo);
+        Call<TowerDetailBean> call = RetrofitUtils.getInstance().requestTowerDetail(proId, craneNo);
         call.enqueue(new Callback<TowerDetailBean>() {
             @Override
             public void onResponse(Call<TowerDetailBean> call, Response<TowerDetailBean> json) {
@@ -217,7 +233,7 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
                 //Log.i("TTT", "塔机详情: "+str);
                 //TowerDetailBean response = JsonUtil.json2Bean(str, TowerDetailBean.class);
                 TowerDetailBean response = json.body();
-                if(response != null){
+                if (response != null) {
                     if ("1".equals(response.getCode())) {
                         if (response.getData() != null) {
                             if (response.getData().getPhototPath() != null) {
@@ -309,7 +325,7 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onFailure(Call<TowerDetailBean> call, Throwable t) {
-                LogUtil.i("塔机详情 "+t.getMessage());
+                LogUtil.i("塔机详情 " + t.getMessage());
             }
         });
     }
@@ -392,7 +408,7 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
 
                 } else if (msg.what == MSG_CONNECT_SUSS) {
                     try {
-                        LogUtil.i("订阅   "+myTopic);
+                        LogUtil.i("订阅   " + myTopic);
                         client.subscribe(myTopic, 1);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -550,7 +566,7 @@ public class TowerDetailActivity extends AppCompatActivity implements View.OnCli
                 public void messageArrived(String topicName, MqttMessage message)
                         throws Exception {
                     //subscribe后得到的消息会执行到这里面
-                    Log.i("TTT", "收到的消息: "+message);
+                    Log.i("TTT", "收到的消息: " + message);
                     Message msg = new Message();
                     msg.what = MSG_CONNECT_DATA;
                     msg.obj = message.toString();
