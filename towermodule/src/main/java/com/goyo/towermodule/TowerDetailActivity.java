@@ -3,9 +3,12 @@ package com.goyo.towermodule;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,18 +16,14 @@ import android.util.SparseArray;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.*;
-
-import com.goyo.towermodule.base.BaseFragment;
 import com.goyo.towermodule.bean.TowerDetailBean;
 import com.goyo.towermodule.bean.TowerReallBean;
 import com.goyo.towermodule.net.RetrofitUtils;
 import com.goyo.towermodule.util.DateUtils;
 import com.goyo.towermodule.util.JsonUtil;
 import com.goyo.towermodule.util.LogUtil;
-
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,12 +31,8 @@ import retrofit2.Response;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-/**
- * Created by luteng
- * on 2017/8/25.
- */
 
-public class TowerDetailFragment extends BaseFragment implements View.OnClickListener {
+public class TowerDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     //正式地址
     private String host = "tcp://emq.igongdi.cn";
@@ -146,66 +141,66 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
     private String proId;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_tower_ji;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_tower_ji);
+        initView();
     }
 
-    @Override
+
     protected void initView() {
-        View view = getRootView();
-        requestInfo = view.findViewById(R.id.requestInfo);
-        towerZhuLeftTextValue = view.findViewById(R.id.tower_zhu_left_text_value);
-        towerZhuRightTextValue = view.findViewById(R.id.tower_zhu_right_text_value);
-        mUpdateTime = view.findViewById(R.id.tv_update_time);
+        requestInfo = findViewById(R.id.requestInfo);
+        towerZhuLeftTextValue = findViewById(R.id.tower_zhu_left_text_value);
+        towerZhuRightTextValue = findViewById(R.id.tower_zhu_right_text_value);
+        mUpdateTime = findViewById(R.id.tv_update_time);
 
-        towerZhuLeftValue = view.findViewById(R.id.tower_zhu_left_value);
-        leftZhu = view.findViewById(R.id.left_zhu);
-        towerRightZhuValue = view.findViewById(R.id.tower_right_zhu_value);
-        rightZhu = view.findViewById(R.id.right_zhu);
-        towerButtonValueOne = view.findViewById(R.id.tower_button_value_one);
-        towerButtonValueTwo = view.findViewById(R.id.tower_button_value_two);
-        towerButtonValueThree = view.findViewById(R.id.tower_button_value_three);
-        towerButtonValueFour = view.findViewById(R.id.tower_button_value_four);
-        towerButtonValueFive = view.findViewById(R.id.tower_button_value_five);
+        towerZhuLeftValue = findViewById(R.id.tower_zhu_left_value);
+        leftZhu = findViewById(R.id.left_zhu);
+        towerRightZhuValue = findViewById(R.id.tower_right_zhu_value);
+        rightZhu = findViewById(R.id.right_zhu);
+        towerButtonValueOne = findViewById(R.id.tower_button_value_one);
+        towerButtonValueTwo = findViewById(R.id.tower_button_value_two);
+        towerButtonValueThree = findViewById(R.id.tower_button_value_three);
+        towerButtonValueFour = findViewById(R.id.tower_button_value_four);
+        towerButtonValueFive = findViewById(R.id.tower_button_value_five);
 
-        towerValueOne = view.findViewById(R.id.tower_value_one);
-        towerValueTwo = view.findViewById(R.id.tower_value_two);
-        towerValueThree = view.findViewById(R.id.tower_value_three);
-        towerValueFour = view.findViewById(R.id.tower_value_four);
-        towerValueFive = view.findViewById(R.id.tower_value_four);
+        towerValueOne = findViewById(R.id.tower_value_one);
+        towerValueTwo = findViewById(R.id.tower_value_two);
+        towerValueThree = findViewById(R.id.tower_value_three);
+        towerValueFour = findViewById(R.id.tower_value_four);
+        towerValueFive = findViewById(R.id.tower_value_four);
 
-        mImpl0 = view.findViewById(R.id.tower_viewTop);
-        mImpl = view.findViewById(R.id.tower_viewLine);
-        mImpl2 = view.findViewById(R.id.tower_viewBottom);
-        timeUpdate = view.findViewById(R.id.time_update);
+        mImpl0 = findViewById(R.id.tower_viewTop);
+        mImpl = findViewById(R.id.tower_viewLine);
+        mImpl2 = findViewById(R.id.tower_viewBottom);
+        timeUpdate = findViewById(R.id.time_update);
 
         initData();
     }
 
     protected void initData() {
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            proId = getArguments().getString("proId");
-            craneNo = getArguments().getString("craneNo");
+        Intent intent = getIntent();
+        if(intent != null){
+            proId = intent.getStringExtra("proId");
+            craneNo = intent.getStringExtra("craneNo");
         }
 
-        proId = "6260";
-        craneNo = "800100";
+        /*proId = "6260";
+        craneNo = "800100";*/
 
         //订阅
         myTopic = myTopic0 + craneNo + myTopic2;
 
         dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
         mDensity = dm.density;
         mImplCenter = mDensity * mImplHeightHuff;
         restoreHandler();
-        getNetWork();
 
-        if (proId != null) {
+        if(proId != null || craneNo == null){
             getNetWork();
-        } else {
-            Toast.makeText(getContext(), "请传递参数proId", Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(this,"请传递参数  proId 和 craneNo",Toast.LENGTH_LONG).show();
         }
 
         requestInfo.setFocusable(true);
@@ -214,7 +209,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void getNetWork() {
-        Call<TowerDetailBean> call = RetrofitUtils.getInstance().requestTowerDetail(proId, craneNo);
+        Call<TowerDetailBean> call = RetrofitUtils.getInstance().requestTowerDetail(proId,craneNo);
         call.enqueue(new Callback<TowerDetailBean>() {
             @Override
             public void onResponse(Call<TowerDetailBean> call, Response<TowerDetailBean> json) {
@@ -222,7 +217,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
                 //Log.i("TTT", "塔机详情: "+str);
                 //TowerDetailBean response = JsonUtil.json2Bean(str, TowerDetailBean.class);
                 TowerDetailBean response = json.body();
-                if (response != null) {
+                if(response != null){
                     if ("1".equals(response.getCode())) {
                         if (response.getData() != null) {
                             if (response.getData().getPhototPath() != null) {
@@ -314,7 +309,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
 
             @Override
             public void onFailure(Call<TowerDetailBean> call, Throwable t) {
-                LogUtil.i("塔机详情 " + t.getMessage());
+                LogUtil.i("塔机详情 "+t.getMessage());
             }
         });
     }
@@ -397,7 +392,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
 
                 } else if (msg.what == MSG_CONNECT_SUSS) {
                     try {
-                        LogUtil.i("订阅   " + myTopic);
+                        LogUtil.i("订阅   "+myTopic);
                         client.subscribe(myTopic, 1);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -555,7 +550,7 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
                 public void messageArrived(String topicName, MqttMessage message)
                         throws Exception {
                     //subscribe后得到的消息会执行到这里面
-                    Log.i("TTT", "收到的消息: " + message);
+                    Log.i("TTT", "收到的消息: "+message);
                     Message msg = new Message();
                     msg.what = MSG_CONNECT_DATA;
                     msg.obj = message.toString();
@@ -626,13 +621,6 @@ public class TowerDetailFragment extends BaseFragment implements View.OnClickLis
 
         super.onDestroy();
     }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
 
     public void publish(String mqttPath, String messageInfo) {
         try {
